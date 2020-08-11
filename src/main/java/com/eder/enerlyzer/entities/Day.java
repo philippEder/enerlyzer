@@ -2,19 +2,24 @@ package com.eder.enerlyzer.entities;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity(name = "Day")
+@Entity(name = "day")
 public class Day {
 
     Integer id;
 
     Calendar date;
+    RatedFactor energy;
+    Rating social;
+    Rating work;
 
-    Energy morningEnergy;
-    Energy afternoonEnergy;
-    Energy eveningEnergy;
+    Set<Meal> meals = new HashSet<>();
 
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -24,7 +29,7 @@ public class Day {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     public Calendar getDate() {
         return date;
     }
@@ -33,28 +38,42 @@ public class Day {
         this.date = date;
     }
 
-    @Transient
-    public Energy getMorningEnergy() {
-        return morningEnergy;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride( name = "morningRating", column = @Column(name = "morningEngergy")),
+            @AttributeOverride( name = "afternoonRating", column = @Column(name = "afternoonEngergy")),
+            @AttributeOverride( name = "eveningRating", column = @Column(name = "eveningEngergy"))
+    })
+    public RatedFactor getEnergy(){
+        return energy;
     }
 
-    public void setMorningEnergy(Energy morningEnergy) {
-        this.morningEnergy = morningEnergy;
-    }
-    @Transient
-    public Energy getAfternoonEnergy() {
-        return afternoonEnergy;
+    @OneToMany(mappedBy = "day")
+    public Set<Meal> getMeals() {
+        return meals;
     }
 
-    public void setAfternoonEnergy(Energy afternoonEnergy) {
-        this.afternoonEnergy = afternoonEnergy;
-    }
-    @Transient
-    public Energy getEveningEnergy() {
-        return eveningEnergy;
+    public void setMeals(Set<Meal> meals) {
+        this.meals = meals;
     }
 
-    public void setEveningEnergy(Energy eveningEnergy) {
-        this.eveningEnergy = eveningEnergy;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "social")
+    public Rating getSocial() {
+        return social;
+    }
+
+    public void setSocial(Rating social) {
+        this.social = social;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "work")
+    public Rating getWork() {
+        return work;
+    }
+
+    public void setWork(Rating work) {
+        this.work = work;
     }
 }

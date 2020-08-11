@@ -1,4 +1,4 @@
-package com.eder.enerlyzer.service.api;
+package com.eder.enerlyzer.service;
 
 import com.eder.enerlyzer.entities.Day;
 

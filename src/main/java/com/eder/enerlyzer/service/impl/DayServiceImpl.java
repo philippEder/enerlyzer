@@ -1,8 +1,8 @@
-package com.eder.enerlyzer.service;
+package com.eder.enerlyzer.service.impl;
 
 import com.eder.enerlyzer.entities.Day;
 import com.eder.enerlyzer.repositories.DayRepository;
-import com.eder.enerlyzer.service.api.DayService;
+import com.eder.enerlyzer.service.DayService;
 import com.eder.enerlyzer.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
