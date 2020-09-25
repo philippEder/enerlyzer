@@ -1,1 +1,1 @@
-INSERT INTO day VALUES (1, current_timestamp);
+SELECT * FROM day;

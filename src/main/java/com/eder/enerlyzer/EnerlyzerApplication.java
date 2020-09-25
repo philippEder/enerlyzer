@@ -1,6 +1,7 @@
 package com.eder.enerlyzer;
 
 import com.eder.enerlyzer.service.DayService;
+import com.eder.enerlyzer.service.TestDataService;
 import com.eder.enerlyzer.utils.LogUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,15 +18,13 @@ public class EnerlyzerApplication {
     public static void main(String[] args) {
         SpringApplication.run(EnerlyzerApplication.class, args);
     }
-
+	
+	
     @Bean
-    public CommandLineRunner testData(DayService dayService) {
+    public CommandLineRunner testData(TestDataService testDataService) {
         return (args) -> {
             LogUtils.logStart(log, "Test Data Generator");
-
-            log.info("DAYS IN DB: " +  dayService.getAll().size());
-
-
+            testDataService.persistTestData();
             LogUtils.logEnd(log, "Test Data Generator");
         };
     }

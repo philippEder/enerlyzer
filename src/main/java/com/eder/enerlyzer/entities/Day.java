@@ -48,6 +48,10 @@ public class Day {
         return energy;
     }
 
+    public void setEnergy(RatedFactor energy) {
+        this.energy = energy;
+    }
+
     @OneToMany(mappedBy = "day")
     public Set<Meal> getMeals() {
         return meals;

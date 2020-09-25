@@ -28,7 +28,7 @@ public class Meal {
         this.id = id;
     }
 
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "consumation_time", nullable = false)
     public Calendar getConsumationTime() {
         return consumationTime;
@@ -56,7 +56,7 @@ public class Meal {
         this.carbs = carbs;
     }
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "day", foreignKey = @ForeignKey(name = "FK_meal_to_day"))
     public Day getDay() {
         return day;
